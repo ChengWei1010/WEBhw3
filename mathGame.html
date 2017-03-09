@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="mine.css">
+<head>
+	<meta charset="UTF-8">
+	<title>GUESS NUMBER GAME</title>
+
+	<script type="text/javascript">
+		var G=[4];//guess
+		var n=1;//猜的次數
+		var ans=[4];//temp	
+		var rdm=0;
+		for(var i=0; i<4; i++){
+			do{
+				var exist=false;
+				rdm=Math.floor((Math.random()*9+1));
+				if(ans.indexOf(rdm)!=-1){exist=true;}
+			}
+			while(exist);
+			ans[i]=rdm;
+		}
+		window.onload=function(){
+			var tr=document.getElementsByTagName('tr');
+        	for(var i=0;i<tr.length;i++){  
+	            if(i%2==0){  
+	                tr[i].style.color="pink"; 
+	            }else{  
+	                tr[i].style.color="white";
+	            }  
+        	}
+        }
+		function reset(){
+			document.getElementById("n1").value.reset();
+			document.getElementById("n2").value.reset();
+			document.getElementById("n3").value.reset();
+			document.getElementById("n4").value.reset();
+		}
+		function correct(){
+			document.getElementById("correct").innerHTML=
+			"<marquee behavior='alternate' scrollamount='5'><br><img src='star.gif'><img src='star.gif'><br>CORRECT<br>NUMBER<br><img src='star.gif'><img src='star.gif'></marquee>";
+			document.getElementById("correct").style.background="#FCAF22";
+			document.getElementById("correct").style.color="red";
+			document.getElementById("correct").style.fontsize="";
+		}
+		function guessCheck(){
+			var G=[4];
+			var a=0,b=0;
+			G[0]=document.getElementById("n1").value;
+			G[1]=document.getElementById("n2").value;
+			G[2]=document.getElementById("n3").value;
+			G[3]=document.getElementById("n4").value;
+			document.getElementById("time"+n).innerHTML=n;
+			document.getElementById("guess"+n).innerHTML=G[0]+G[1]+G[2]+G[3];
+			// "__"+ans[0]+ans[1]+ans[2]+ans[3]
+			for(var i=0;i<4;i++){
+				for(var j=0;j<4;j++){
+					if(G[i]==ans[j]){
+						if(i==j){
+							a+=1;
+						}
+						else{
+							b+=1;
+						}
+					}
+				}
+			}
+			if(a==4){correct()}
+			else{
+				document.getElementById("result"+n).innerHTML=a+'A'+b+'B';	
+				G[4]=null;
+				n++;
+					if (n==11) {
+					window.alert("no more guessing! New game!");					
+					window.location.reload();
+				}
+			}
+		}
+		function seeAnswer(){
+			window.alert('answer is:'+ans[0]+ans[1]+ans[2]+ans[3]+'   play again!');
+			window.location.reload();
+		}
+		function onenumCheck(){
+			var G=[4];
+			var wrong=0;
+			G[0]=document.getElementById("n1").value;
+			G[1]=document.getElementById("n2").value;
+			G[2]=document.getElementById("n3").value;
+			G[3]=document.getElementById("n4").value;
+			for(var n=0;n<4;n++){
+				if(G[n]==null||G[n].length>1||G[n]==G[n+1]||isNaN(G[n]))wrong++;
+			}
+				if(wrong!=0)window.alert("wrong enter!");
+				else guessCheck();
+		}
+	</script>
+</head>
+<body>
+	<div id="home"><a href="../hw1/index.html"><img src="../hw4/home.jpeg" alt=""></div></a>
+	<div id="head"><div id="head-text">A Guess Number Game</div>
+		<form action="#">
+			<input id="n1" type="text" placeholder="number 1">
+			<input id="n2" type="text" placeholder="number 2">
+			<input id="n3" type="text" placeholder="number 3">
+			<input id="n4" type="text" placeholder="number 4">
+			<input class="button" type="button" value="Guess!" onclick=onenumCheck()>
+			<input class="button" type="button" value="Reset" onclick=reset()>
+			<input class="button" type="button" value="give up" onclick=seeAnswer()><br>
+		</form>
+	</div>	
+	<div id="content">
+		<div id="blackboard">
+			<table>
+				<th>GUESS TIME&nbsp;/&nbsp;</th><th>Your Guess&nbsp;/&nbsp;</th><th>RESULT</th>
+				<tr>
+					<td><span id="time1"></span></td>
+					<td><span id="guess1"></span></td>
+					<td><span id="result1"></span></td>
+				</tr>
+				<tr>
+					<td><span id="time2"></span></td>
+					<td><span id="guess2"></span></td>
+					<td><span id="result2"></span></td>
+				</tr>
+				<tr>
+					<td><span id="time3"></span></td>
+					<td><span id="guess3"></span></td>
+					<td><span id="result3"></span></td>
+				</tr>
+				<tr>
+					<td><span id="time4"></span></td>
+					<td><span id="guess4"></span></td>
+					<td><span id="result4"></span></td>
+				</tr>
+				<tr>
+					<td><span id="time5"></span></td>
+					<td><span id="guess5"></span></td>
+					<td><span id="result5"></span></td>
+				</tr>
+				<tr>
+					<td><span id="time6"></span></td>
+					<td><span id="guess6"></span></td>
+					<td><span id="result6"></span></td>
+				</tr>
+				<tr>
+					<td><span id="time7"></span></td>
+					<td><span id="guess7"></span></td>
+					<td><span id="result7"></span></td>
+				</tr>
+				<tr>
+					<td><span id="time8"></span></td>
+					<td><span id="guess8"></span></td>
+					<td><span id="result8"></span></td>
+				</tr>
+				<tr>
+					<td><span id="time9"></span></td>
+					<td><span id="guess9"></span></td>
+					<td><span id="result9"></span></td>
+				</tr>
+				<tr>
+					<td><span id="time10"></span></td>
+					<td><span id="guess10"></span></td>
+					<td><span id="result10"></span></td>
+				</tr>
+			</table>
+			<div id="correct">
+				<p>enter <b>4</b> different number <br>got <b>10</b> times to guess<br><br>
+					if you got:<br><b>A</b>&nbsp;:&nbsp;value and position are both correct<br>
+					<b>B</b>&nbsp;:&nbsp;only value right, position is wrong
+				</p>
+			</div>
+		</div>
+	</div>
+	<footer>web programming homework<br>Copyright reserved. &copy; Design by Lily Cheng. 2015.November</footer>
+</body>
